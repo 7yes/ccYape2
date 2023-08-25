@@ -4,6 +4,7 @@ plugins {
     id 'io.gitlab.arturbosch.detekt'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -52,6 +56,7 @@ implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'    // en Corrutinas tiene lifecycleScope.blabla y VM
 //dagger hilt
     implementation 'com.google.dagger:hilt-android:2.44'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     kapt 'com.google.dagger:hilt-android-compiler:2.44'
 // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.0'

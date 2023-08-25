@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_details"
+        android:name="com.example.ccyape2.ui.fragments.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_mapsFragment"
+            app:destination="@id/nav_maps" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.ccyape2.ui.fragments.RecipesListFragment"
+        android:label="fragment_recipes_list"
+        tools:layout="@layout/fragment_recipes_list" >
+        <action
+            android:id="@+id/action_recipesListFragment_to_detailFragment"
+            app:destination="@id/nav_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_maps"
+        android:name="com.example.ccyape2.ui.fragments.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
+</navigation>
