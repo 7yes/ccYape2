@@ -1,4 +1,4 @@
-package com.example.ccyape2.ui.core
+package com.example.ccyape2.core
 
 import android.app.Activity
 import android.content.Context
