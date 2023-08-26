@@ -8,7 +8,7 @@ import com.example.ccyape2.R
 import com.example.ccyape2.domain.model.RecipeItem
 
 class RecipeAdapter(
-    private val listRecipes: List<RecipeItem>,
+    private var listRecipes: List<RecipeItem>,
     private val onClickLis: (RecipeItem) -> Unit
 ) : RecyclerView.Adapter<RecipeVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeVH {
@@ -21,6 +21,11 @@ class RecipeAdapter(
     override fun onBindViewHolder(holder: RecipeVH, position: Int) {
         val item = listRecipes[position]
         Log.d("TAG", "onBindViewHolder: ${item.name} ")
-        holder.bind(item,onClickLis)
+        holder.bind(item, onClickLis)
+    }
+
+    fun updateListByFilter(recipesListFiltered: List<RecipeItem>) {
+        this.listRecipes = recipesListFiltered
+        notifyDataSetChanged()
     }
 }

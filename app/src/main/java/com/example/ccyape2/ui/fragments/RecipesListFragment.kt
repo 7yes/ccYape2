@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ccyape2.R
+import com.example.ccyape2.core.hideKeyboard
 import com.example.ccyape2.data.adapter.RecipeAdapter
 import com.example.ccyape2.databinding.FragmentRecipesListBinding
 import com.example.ccyape2.domain.model.RecipeItem
@@ -17,13 +19,13 @@ import com.example.ccyape2.viewmodel.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RecipesListFragment : Fragment() {
+class RecipesListFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewmodel:RecipesViewModel by activityViewModels()
+    private val viewmodel: RecipesViewModel by activityViewModels()
 
-    private  lateinit var adapter: RecipeAdapter
+    private lateinit var adapter: RecipeAdapter
     private var recipesList = mutableListOf<RecipeItem>()
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class RecipesListFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding.svSearch.setOnClickListener {
-           //
+            //
         }
         initRV()
         viewmodel.recipes.observe(viewLifecycleOwner) {
@@ -44,14 +46,14 @@ class RecipesListFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-       // findNavController().navigate(R.id.action_recipesListFragment_to_detailFragment)
-        // proveRetro()
+        binding.svSearch.setOnQueryTextListener(this)
 
         return binding.root
     }
+
     private fun initRV() {
         Log.d("TAG", "initRV: ")
-        adapter = RecipeAdapter(recipesList){
+        adapter = RecipeAdapter(recipesList) {
             Log.d("TAG", "${it.name} selected ")
             viewmodel.updateLastRecipe(it)
             findNavController().navigate(R.id.action_recipesListFragment_to_detailFragment)
@@ -64,6 +66,21 @@ class RecipesListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        hideKeyboard()
+        return true
+    }
+    override fun onQueryTextChange(newText: String): Boolean {
+        if (newText.isEmpty()) hideKeyboard()
+        val recipesFiltered =
+            recipesList.filter { recipe ->
+                recipe.name.lowercase().contains(newText.lowercase())
+                recipe.description.lowercase().contains(newText.lowercase())
+            }
+        adapter.updateListByFilter(recipesFiltered)
+        return true
     }
 
 //    private fun proveRetro() {
