@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.ccyape2.domain.model.RecipeItem
 import com.example.ccyape2.domain.usecase.GetAllUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +18,10 @@ class RecipesViewModel @Inject constructor(private val getAllUseCase: GetAllUseC
     val recipes: LiveData<List<RecipeItem>> = _recipes
 
      fun getAllrecipes(){
-         viewModelScope.launch(Dispatchers.IO) {
-             _recipes.postValue(getAllUseCase.getAllRecipes())
-             Log.d("TAG", "getAllrecipes: llego ${_recipes.value?.get(1)?.name}")
+         viewModelScope.launch() {
+             val response = getAllUseCase.getAllRecipes()
+             _recipes.postValue(response)
+             Log.d("TAG", "view model getAllrecipes: llego ${response[1]}")
          }
      }
 }
