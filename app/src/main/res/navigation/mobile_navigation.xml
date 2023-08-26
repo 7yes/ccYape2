@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_mapsFragment"
-            app:destination="@id/nav_maps" />
+            app:destination="@id/nav_maps"
+            app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/nav_home"
@@ -21,7 +22,11 @@
         tools:layout="@layout/fragment_recipes_list" >
         <action
             android:id="@+id/action_recipesListFragment_to_detailFragment"
-            app:destination="@id/nav_details" />
+            app:destination="@id/nav_details"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/nav_maps"

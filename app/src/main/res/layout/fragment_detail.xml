@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="vertical"
     android:background="@color/teal_200"
     android:orientation="vertical"
     tools:context=".ui.fragments.DetailFragment">
 
     <TextView
-        android:id="@+id/tv_details"
+        android:id="@+id/tv_name"
         style="@style/mStyle"
         android:textStyle="bold"
         android:layout_width="match_parent"
@@ -22,6 +23,8 @@
     <TextView
         android:id="@+id/tv_description"
         style="@style/mStyle"
+        android:textSize="14sp"
+        android:justificationMode="inter_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Description" />
@@ -29,6 +32,9 @@
         android:id="@+id/tv_ingredients"
         style="@style/mStyle"
         android:textStyle="bold"
+        android:textSize="14sp"
+        android:gravity="start"
+        android:justificationMode="inter_word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Ingredients" />

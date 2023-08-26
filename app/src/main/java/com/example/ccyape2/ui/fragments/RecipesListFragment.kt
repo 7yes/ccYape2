@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ccyape2.R
@@ -21,7 +21,7 @@ class RecipesListFragment : Fragment() {
     private var _binding: FragmentRecipesListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewmodel:RecipesViewModel by viewModels()
+    private val viewmodel:RecipesViewModel by activityViewModels()
 
     private  lateinit var adapter: RecipeAdapter
     private var recipesList = mutableListOf<RecipeItem>()
@@ -53,6 +53,7 @@ class RecipesListFragment : Fragment() {
         Log.d("TAG", "initRV: ")
         adapter = RecipeAdapter(recipesList){
             Log.d("TAG", "${it.name} selected ")
+            viewmodel.updateLastRecipe(it)
             findNavController().navigate(R.id.action_recipesListFragment_to_detailFragment)
         }
         binding.rvRecipes.layoutManager = LinearLayoutManager(requireContext())

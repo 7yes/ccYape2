@@ -17,6 +17,9 @@ class RecipesViewModel @Inject constructor(private val getAllUseCase: GetAllUseC
     private var _recipes = MutableLiveData<List<RecipeItem>>()
     val recipes: LiveData<List<RecipeItem>> = _recipes
 
+    private var _lastRecipe = MutableLiveData<RecipeItem>()
+    val lastRecipe: LiveData<RecipeItem> = _lastRecipe
+
      fun getAllrecipes(){
          viewModelScope.launch() {
              val response = getAllUseCase.getAllRecipes()
@@ -24,4 +27,7 @@ class RecipesViewModel @Inject constructor(private val getAllUseCase: GetAllUseC
              Log.d("TAG", "view model getAllrecipes: llego ${response[1]}")
          }
      }
+    fun updateLastRecipe(recipeItem: RecipeItem) {
+        _lastRecipe.postValue(recipeItem)
+    }
 }
