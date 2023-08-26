@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ccyape2.R
 import com.example.ccyape2.domain.model.RecipeItem
 
-class RecipeAdapter(private val listRecipes: List<RecipeItem>) : RecyclerView.Adapter<RecipeVH>() {
+class RecipeAdapter(
+    private val listRecipes: List<RecipeItem>,
+    private val onClickLis: (RecipeItem) -> Unit
+) : RecyclerView.Adapter<RecipeVH>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeVH {
         val layoutInflater = LayoutInflater.from(parent.context)
         return RecipeVH(layoutInflater.inflate(R.layout.item_small_recipe, parent, false))
@@ -18,6 +21,6 @@ class RecipeAdapter(private val listRecipes: List<RecipeItem>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: RecipeVH, position: Int) {
         val item = listRecipes[position]
         Log.d("TAG", "onBindViewHolder: ${item.name} ")
-        holder.bind(item)
+        holder.bind(item,onClickLis)
     }
 }

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ccyape2.R
 import com.example.ccyape2.data.adapter.RecipeAdapter
 import com.example.ccyape2.databinding.FragmentRecipesListBinding
 import com.example.ccyape2.domain.model.RecipeItem
@@ -49,7 +51,10 @@ class RecipesListFragment : Fragment() {
     }
     private fun initRV() {
         Log.d("TAG", "initRV: ")
-        adapter = RecipeAdapter(recipesList)
+        adapter = RecipeAdapter(recipesList){
+            Log.d("TAG", "${it.name} selected ")
+            findNavController().navigate(R.id.action_recipesListFragment_to_detailFragment)
+        }
         binding.rvRecipes.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRecipes.adapter = adapter
         viewmodel.getAllrecipes()
