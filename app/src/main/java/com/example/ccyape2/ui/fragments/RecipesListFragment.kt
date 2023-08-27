@@ -47,7 +47,6 @@ class RecipesListFragment : Fragment(), SearchView.OnQueryTextListener {
         }
 
         binding.svSearch.setOnQueryTextListener(this)
-
         return binding.root
     }
 
@@ -72,6 +71,7 @@ class RecipesListFragment : Fragment(), SearchView.OnQueryTextListener {
         hideKeyboard()
         return true
     }
+
     override fun onQueryTextChange(newText: String): Boolean {
         if (newText.isEmpty()) hideKeyboard()
         val recipesFiltered =
